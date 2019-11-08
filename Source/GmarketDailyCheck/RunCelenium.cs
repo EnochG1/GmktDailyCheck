@@ -43,7 +43,7 @@ namespace GmarketDailyCheck
 				element.SendKeys(id);
 				element = driver.FindElement(By.Id("pwd"));
 				element.SendKeys(pw);
-				element = driver.FindElement(By.CssSelector("input[title='로그인'][alt='LOGIN']"));
+				element = driver.FindElement(By.CssSelector("button[title='login']"));
 				element.Click();
 
 				driver.Navigate().GoToUrl("http://promotion.gmarket.co.kr/Event/pluszone.asp");
