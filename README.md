@@ -3,11 +3,11 @@ Gmarket 출석체크 도우미 (C#)
 http://promotion.gmarket.co.kr/Event/pluszone.asp 의 출석체크를 해주는 프로그램
 빌드 후 생성된 exe 파일을 작업스케쥴러에 넣어주면 매일 출첵이 가능합니다.
 
-# 설정방법
+## 설정방법
 1. 빌드 후 생성되는 config 파일에 본인의 로그인 정보를 입력 (id/pw)
 2. PC에 설치되어 있는 Chrome으로 실행하려는 경우, ChromePath를 공란("")으로 수정
 
-## Chromedriver와 Chrome 버전 차이로 인한 이슈 해결방법
+### Chromedriver와 Chrome 버전 차이로 인한 이슈 해결방법
 Nuget 기준 최신 Chromedriver 버전은 85.x인데, 기본 chrome 버전과 차이가 많이 나고 해당하는 chrome을 찾기 어려울 경우
 chromedriver와 chrome 실행파일을 맞춰서 chromedriver가 지정한 chrome을 실행하도록 설정이 가능하다.
 1. chromium browser snapshot 페이지에 접속하여 맞는 OS를 선택. https://commondatastorage.googleapis.com/chromium-browser-snapshots/index.html
