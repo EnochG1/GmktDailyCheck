@@ -13,8 +13,9 @@ namespace GmarketDailyCheck
 	{
 		static void Main(string[] args)
 		{
-			string id = Convert.ToString(ConfigurationManager.AppSettings["ID"]);
-			string pw = Convert.ToString(ConfigurationManager.AppSettings["PW"]);
+			var id = Convert.ToString(ConfigurationManager.AppSettings["ID"]);
+			var pw = Convert.ToString(ConfigurationManager.AppSettings["PW"]);
+			var chromePath = Convert.ToString(ConfigurationManager.AppSettings["ChromePath"]);
 
 			Console.WriteLine("ID : " + id);
 
@@ -25,8 +26,17 @@ namespace GmarketDailyCheck
 				Environment.Exit(0);
 			}
 
-			IWebDriver driver = new ChromeDriver();
-
+			IWebDriver driver;
+			if (string.IsNullOrEmpty(chromePath))
+				driver = new ChromeDriver();
+			else
+			{
+				var options = new ChromeOptions
+				{
+					BinaryLocation = chromePath
+				};
+				driver = new ChromeDriver(options);
+			}
 
 			try
 			{
