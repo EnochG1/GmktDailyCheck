@@ -47,16 +47,16 @@ namespace GmarketDailyCheck
 				//element.Click();
 
 				WebDriverWait waitForElement = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
-				waitForElement.Until(ExpectedConditions.ElementIsVisible(By.Id("id")));
+				waitForElement.Until(ExpectedConditions.ElementIsVisible(By.Id("typeMemberInputId")));
 
-				element = driver.FindElement(By.Id("id"));
+				element = driver.FindElement(By.Id("typeMemberInputId"));
 				element.SendKeys(id);
-				element = driver.FindElement(By.Id("pwd"));
+				element = driver.FindElement(By.Id("typeMemberInputPassword"));
 				element.SendKeys(pw);
-				element = driver.FindElement(By.CssSelector("button[title='login']"));
+				element = driver.FindElement(By.CssSelector("button[id='btn_memberLogin']"));
 				element.Click();
 
-				driver.Navigate().GoToUrl("http://promotion.gmarket.co.kr/Event/pluszone.asp");
+				driver.Navigate().GoToUrl("https://promotion.gmarket.co.kr/Event/pluszone.asp");
 
 				waitForElement = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
 				waitForElement.Until(ExpectedConditions.ElementIsVisible(By.Id("AttendRulletFrame")));
