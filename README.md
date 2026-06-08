@@ -1,6 +1,6 @@
 # GmktDailyCheck
 Gmarket 출석체크 도우미 (C#)
-http://promotion.gmarket.co.kr/Event/pluszone.asp 의 출석체크를 해주는 프로그램
+https://www.gmarket.co.kr/n/smilehome 의 '출첵하고 캐시받기' 버튼을 눌러 출석체크를 해주는 프로그램
 빌드 후 생성된 exe 파일을 작업스케쥴러에 넣어주면 매일 출첵이 가능합니다.
 
 ## 설정방법
