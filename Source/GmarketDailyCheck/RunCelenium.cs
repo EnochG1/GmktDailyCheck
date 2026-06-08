@@ -56,23 +56,14 @@ namespace GmarketDailyCheck
 				element = driver.FindElement(By.CssSelector("button[id='btn_memberLogin']"));
 				element.Click();
 
-				driver.Navigate().GoToUrl("https://promotion.gmarket.co.kr/Event/pluszone.asp");
-
-				waitForElement = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
-				waitForElement.Until(ExpectedConditions.ElementIsVisible(By.Id("AttendRulletFrame")));
-
-				driver.SwitchTo().Frame(driver.FindElement(By.Id("AttendRulletFrame")));
-				element = driver.FindElement(By.CssSelector("a.button_start"));
-				element.Click();
-
-				AdditionalAttendBonus(driver);
+				DailyCheck(driver);
 			}
 			catch (UnhandledAlertException e)
 			{
 				IAlert alert = ExpectedConditions.AlertIsPresent().Invoke(driver);
 				driver.SwitchTo().Alert().Accept();
 
-				AdditionalAttendBonus(driver);
+				DailyCheck(driver);
 			}
 			catch (Exception e)
 			{
@@ -81,27 +72,26 @@ namespace GmarketDailyCheck
 			}
 		}
 
-		private static void AdditionalAttendBonus(IWebDriver driver)
+		private static void DailyCheck(IWebDriver driver)
 		{
-			driver.SwitchTo().DefaultContent();
-			driver.SwitchTo().Frame(driver.FindElement(By.Id("AttendcalendarFrame")));
+			driver.Navigate().GoToUrl("https://www.gmarket.co.kr/n/smilehome");
 
-			string attendDays = driver.FindElement(By.CssSelector("span.date")).Text;
+			WebDriverWait waitForElement = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+			IWebElement element = waitForElement.Until(
+				ExpectedConditions.ElementExists(By.CssSelector("button.button__daily-check")));
 
-			driver.SwitchTo().DefaultContent();
+			// smilehome은 모바일 레이아웃 기반이라 데스크톱 너비에서 버튼이 숨겨질 수 있어
+			// JavaScript로 스크롤 후 직접 클릭한다.
+			IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+			js.ExecuteScript("arguments[0].scrollIntoView(true);", element);
+			js.ExecuteScript("arguments[0].click();", element);
 
-			if (int.Parse(attendDays) >= 10)
-			{
-				IWebElement element = driver.FindElement(By.CssSelector("img[alt='10회이상 출석시 100 Smile Point']"));
-				element.Click();
+			Thread.Sleep(3000);
 
-				Thread.Sleep(3000);
-				if (int.Parse(attendDays) >= 15)
-				{
-					element = driver.FindElement(By.CssSelector("img[alt='15회이상 출석시 200 Smile Point']"));
-					element.Click();
-				}
-			}
+			// 출석체크 결과 안내 알럿이 뜨면 확인 처리
+			IAlert alert = ExpectedConditions.AlertIsPresent().Invoke(driver);
+			if (alert != null)
+				alert.Accept();
 		}
 	}
 }
